@@ -53,6 +53,5 @@ class User extends Authenticatable
         'is_superuser' => 'boolean',
         'is_owner' => 'boolean',
         'is_staff' => 'boolean',
-        'is_customer' => 'boolean',
     ];
 }

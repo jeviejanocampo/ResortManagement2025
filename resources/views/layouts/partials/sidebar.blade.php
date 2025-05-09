@@ -44,7 +44,7 @@
                 </li>
 
                 <li>
-                    <a href="#" class="tp-link">
+                    <a href="{{ route('users') }}" class="tp-link">
                         <i data-feather="users"></i>
                         <span> Users </span>
                     </a>
