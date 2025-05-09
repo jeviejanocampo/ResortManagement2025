@@ -49,7 +49,7 @@ $(document).ready(function () {
     }
 
     // Initialize tables with buttons
-    initializeDataTableWithButtons('#users', 10, 'desc');
+    initializeDataTableWithButtons('#users', 9, 'desc');
     initializeDataTableWithButtons('#option-categories', 3, 'desc');
     initializeDataTableWithButtons('#rooms', 6, 'desc');
     initializeDataTableWithButtons('#venues', 5, 'desc');

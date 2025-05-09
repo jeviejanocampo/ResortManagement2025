@@ -207,7 +207,7 @@
         
         const firstnameInput = document.getElementById('firstname');
         const lastnameInput = document.getElementById('lastname');
-        const dobInput = document.getElementById('basic-datepicker');
+        const dobInput = document.getElementById('user-dob-datepicker');
         const genderInput = document.getElementById('gender');
         const phoneInput = document.getElementById('phone_number');
         const emailInput = document.getElementById('email');
