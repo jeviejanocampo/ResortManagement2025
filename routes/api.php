@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\RoomController;
 
 
 
