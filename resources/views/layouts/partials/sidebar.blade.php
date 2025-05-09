@@ -31,7 +31,7 @@
                     <div class="collapse" id="sidebarDashboards">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="#" class="tp-link">Categories</a>
+                                <a href="{{ route('categories') }}" class="tp-link">Categories</a>
                             </li>
                             <li>
                                 <a href="#" class="tp-link">Rooms</a>
