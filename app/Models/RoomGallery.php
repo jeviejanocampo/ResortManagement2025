@@ -15,4 +15,9 @@ class RoomGallery extends Model
         'room_id',
         'image_name',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'room_id', 'room_id');
+    }
 }

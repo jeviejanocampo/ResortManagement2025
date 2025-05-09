@@ -15,10 +15,13 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Uncomment the boot method if you want to use ngrok
      */
-    public function boot(): void
-    {
-        //
-    }
+    // public function boot()
+    // {
+    //     if (app()->environment('local')) {
+    //         URL::forceScheme('https');
+    //     }
+    // }
+    
 }
