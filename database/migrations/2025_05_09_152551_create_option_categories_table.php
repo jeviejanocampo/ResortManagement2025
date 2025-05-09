@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('option_categories', function (Blueprint $table) {
             $table->id('option_category_id');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->name('option_categories_user_id');
             $table->string('name', 100)->unique();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->softDeletes();

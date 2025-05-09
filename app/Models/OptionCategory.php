@@ -17,6 +17,7 @@ class OptionCategory extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'user_id',
         'name',
         'status',
     ];
