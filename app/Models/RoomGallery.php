@@ -9,10 +9,15 @@ class RoomGallery extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'rooms_gallery';
+    protected $table = 'room_galleries';
 
     protected $fillable = [
         'room_id',
         'image_name',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'room_id', 'room_id');
+    }
 }
