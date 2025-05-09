@@ -9,7 +9,7 @@ class RoomGallery extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'rooms_gallery';
+    protected $table = 'room_galleries';
 
     protected $fillable = [
         'room_id',

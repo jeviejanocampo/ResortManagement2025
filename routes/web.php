@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Menu\OptionCategoryController;
+use App\Http\Controllers\Menu\RoomController;
 use App\Http\Controllers\Menu\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,11 @@ Route::middleware(['auth', 'verified', 'role:is_superuser,is_owner,is_staff', 'p
             'update' => 'categories.update',
             'destroy' => 'categories.destroy'
         ])->parameters(['categories' => 'category']);
+    Route::resource('rooms', RoomController::class)
+        ->names([
+            'index' => 'rooms',
+            'store' => 'rooms.store', 
+            'update' => 'rooms.update',
+            'destroy' => 'rooms.destroy'
+        ])->parameters(['rooms' => 'room']);
 });

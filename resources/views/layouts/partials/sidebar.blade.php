@@ -34,7 +34,7 @@
                                 <a href="{{ route('categories') }}" class="tp-link">Categories</a>
                             </li>
                             <li>
-                                <a href="#" class="tp-link">Rooms</a>
+                                <a href="{{ route('rooms') }}" class="tp-link">Rooms</a>
                             </li>
                             <li>
                                 <a href="#" class="tp-link">Venues</a>
