@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Availability;
 
 use App\Models\Booking;
+use App\Models\Room;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoomBookingRequest extends FormRequest
@@ -23,6 +24,7 @@ class RoomBookingRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // Booking fields:
             'room_id' => 'required|exists:rooms,room_id',
             'guest_name' => 'required|string|max:100',
             'guest_phone' => 'required|string|max:15',
@@ -32,6 +34,14 @@ class RoomBookingRequest extends FormRequest
             'check_out_date' => 'required|date|after:check_in_date',
             'extra_pax' => 'nullable|integer|min:0',
             'special_requests' => 'nullable|string|max:255',
+
+            // Payment fields:
+            'total_amount' => 'required|numeric|min:0',
+            'payment_method' => 'required|string|max:50',
+            'reference_number' => 'nullable|string|max:100',
+            'amount_paid' => 'required|numeric|min:0',
+            'change' => 'nullable|numeric|min:0',
+            'payment_notes' => 'nullable|string|max:255',
         ];
     }
 
@@ -41,6 +51,11 @@ class RoomBookingRequest extends FormRequest
             $roomId = $this->input('room_id');
             $checkIn = $this->input('check_in_date');
             $checkOut = $this->input('check_out_date');
+
+            $room = Room::where('room_id', $roomId)->first();
+            if ($room && $room->status === 'maintenance') {
+                $validator->errors()->add('room_id', 'This room is under maintenance and cannot be booked.');
+            }
 
             if ($roomId && $checkIn && $checkOut) {
                 $overlap = Booking::where('room_id', $roomId)

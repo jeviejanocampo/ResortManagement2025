@@ -24,7 +24,7 @@ class Booking extends Model
         'extra_pax',
         'special_requests',
     ];
-    
+
     protected $casts = [
         'check_in_date' => 'date',
         'check_out_date' => 'date',
@@ -33,6 +33,11 @@ class Booking extends Model
     public function room()
     {
         return $this->belongsTo(Room::class, 'room_id', 'room_id');
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'booking_id', 'booking_id');
     }
 
     public function user()

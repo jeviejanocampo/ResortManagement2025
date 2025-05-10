@@ -22,11 +22,26 @@ class RoomAvailabilityController extends Controller
     public function roomBooking(RoomBookingRequest $request)
     {
         $data = $request->validated();
-        $data['user_id'] = Auth::user()->id;
+        $data['user_id'] = Auth::id();
 
-        Booking::create($data);
+        $paymentFields = [
+            'total_amount',
+            'payment_method',
+            'reference_number',
+            'amount_paid',
+            'change',
+            'payment_notes',
+        ];
+        $paymentData = [];
+        foreach ($paymentFields as $field) {
+            $paymentData[$field] = $data[$field] ?? null;
+            unset($data[$field]);
+        }
 
-        return redirect()->back()->with('success', 'Room booked successfully!');
+        $booking = Booking::create($data);
+        $booking->payment()->create($paymentData);
+
+        return redirect()->back()->with('success', 'Room booked and payment recorded successfully!');
     }
 
     public function getRoomEvents($room)
@@ -39,7 +54,6 @@ class RoomAvailabilityController extends Controller
                 'start' => $booking->check_in_date,
                 'end' => $booking->check_out_date,
                 'className' => 'event-primary border-primary'
-                
             ];
         });
 
