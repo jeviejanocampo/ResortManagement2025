@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Controllers\Availability;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Availability\RoomBookingRequest;
+use App\Models\Booking;
+use App\Models\Room;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class RoomAvailabilityController extends Controller
+{
+    public function room($room)
+    {
+        $room = Room::with(['category', 'roomGallery'])
+            ->where('room_id', $room)
+            ->firstOrFail();
+        return view('availability.room', compact('room'));
+    }
+
+    public function roomBooking(RoomBookingRequest $request)
+    {
+        $data = $request->validated();
+        $data['user_id'] = Auth::user()->id;
+
+        Booking::create($data);
+
+        return redirect()->back()->with('success', 'Room booked successfully!');
+    }
+
+    public function getRoomEvents($room)
+    {
+        $bookings = Booking::where('room_id', $room)->get();
+
+        $events = $bookings->map(function ($booking) {
+            return [
+                'title' => "Booked by: {$booking->guest_name}",
+                'start' => $booking->check_in_date,
+                'end' => $booking->check_out_date,
+                'className' => 'event-primary border-primary'
+                
+            ];
+        });
+
+        return response()->json($events);
+    }
+
+}

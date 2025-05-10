@@ -137,7 +137,7 @@
                                     <tr>
                                         <td class="align-middle text-center">{{ $room->room_number }}</td>
                                         <td class="align-middle">{{ Str::title($room->room_type) }}</td>
-                                        <td class="align-middle">{{ $room->category->name ?? '-' }}</td>
+                                        <td class="align-middle">{{ Str::limit($room->category->name, 15) }}</td>
                                         <td class="align-middle text-center">{{ $room->pax }}</td>
                                         <td class="align-middle text-center">₱{{ number_format($room->rate_per_night, 2) }}</td>
                                         <td class="align-middle text-center">₱{{ number_format($room->rate_per_pax, 2) }}</td>

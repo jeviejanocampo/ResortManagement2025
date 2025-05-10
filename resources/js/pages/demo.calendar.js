@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var calendar = new Calendar(calendarEl, {
         plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
         timeZone: 'local',
-        editable: true,
+        editable: false,
         selectable: true,
         initialView: getInitialView(),
         themeSystem: 'bootstrap',
@@ -33,15 +33,32 @@ document.addEventListener('DOMContentLoaded', function () {
         weekNumbers: true,
         dayMaxEvents: true,
         handleWindowResize: true,
-        events: [
-            
-        ],
+        events: `/room/${roomId}/events`,
         dateClick: function(info) {
-            // const checkInInput = document.getElementById('check_in_datepickr');
-            // checkInInput._flatpickr.setDate(info.dateStr);
-
-            const modal = new bootstrap.Modal(document.getElementById('booking-modal'));
-            modal.show();
+            const events = calendar.getEvents();
+            const clickedDate = new Date(info.date).setHours(0, 0, 0, 0);
+        
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (clickedDate < today) {
+                return;
+            }
+        
+            const isBooked = events.some(event => {
+                const eventStart = new Date(event.start).setHours(0, 0, 0, 0);
+                const eventEnd = new Date(event.end).setHours(0, 0, 0, 0);
+                return clickedDate >= eventStart && clickedDate < eventEnd;
+            });
+        
+            if (!isBooked) {
+                const checkInInput = document.getElementById('check_in_date');
+                checkInInput.value = info.dateStr;
+                const modal = new bootstrap.Modal(document.getElementById('booking-modal'));
+                modal.show();
+            }
+        },
+        eventDidMount: function(info) {
+            info.el.style.cursor = 'not-allowed';
         }
     });
     calendar.render();

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Availability\RoomAvailabilityController;
+use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Menu\OptionCategoryController;
 use App\Http\Controllers\Menu\RoomController;
@@ -40,4 +42,12 @@ Route::middleware(['auth', 'verified', 'role:is_superuser,is_owner,is_staff', 'p
             'update' => 'rooms.update',
             'destroy' => 'rooms.destroy'
         ])->parameters(['rooms' => 'room']);
+    Route::get('room/{room}/availability', [RoomAvailabilityController::class, 'room'])
+        ->name('room.availability');
+
+    Route::post('room/{room}/booking', [RoomAvailabilityController::class, 'roomBooking'])
+        ->name('room.booking');
+
+    Route::get('room/{room}/events', [RoomAvailabilityController::class, 'getRoomEvents'])
+        ->name('room.events');
 });
