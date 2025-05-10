@@ -21,6 +21,7 @@ class Room extends Model
         'option_category_id',
         'pax',
         'rate_per_night',
+        'rate_per_pax',
         'checked_in',
         'checked_out',
         'status',

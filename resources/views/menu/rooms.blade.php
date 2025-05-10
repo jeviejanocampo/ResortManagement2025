@@ -40,6 +40,17 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="option_category_id" class="form-label">Category<span class="text-danger"> *</span></label>
+                                                <select class="form-select" id="option_category_id" name="option_category_id" required>
+                                                    <option selected disabled value="">Choose...</option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->option_category_id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="room_number" class="form-label">Room Number<span class="text-danger"> *</span></label>
                                                 <input type="text" class="form-control" id="room_number" name="room_number" required>
@@ -51,23 +62,18 @@
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <label for="option_category_id" class="form-label">Category<span class="text-danger"> *</span></label>
-                                                <select class="form-select" id="option_category_id" name="option_category_id" required>
-                                                    <option selected disabled value="">Choose...</option>
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->option_category_id }}">{{ $category->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label for="rate_per_night" class="form-label">Rate Per Night<span class="text-danger"> *</span></label>
+                                                <input type="number" step="0.01" class="form-control" id="rate_per_night" name="rate_per_night" required min="0">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="pax" class="form-label">Capacity<span class="text-danger"> *</span></label>
-                                                <input type="number" class="form-control" id="pax" name="pax" required min="1">
+                                                <label for="rate_per_pax" class="form-label">Rate Per Pax<span class="text-danger"> *</span></label>
+                                                <input type="number" step="0.01" class="form-control" id="rate_per_pax" name="rate_per_pax" required min="0">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <label for="rate_per_night" class="form-label">Rate Per Night<span class="text-danger"> *</span></label>
-                                                <input type="number" step="0.01" class="form-control" id="rate_per_night" name="rate_per_night" required min="0">
+                                                <label for="pax" class="form-label">Capacity<span class="text-danger"> *</span></label>
+                                                <input type="number" class="form-control" id="pax" name="pax" required min="1">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="status" class="form-label">Status<span class="text-danger"> *</span></label>
@@ -120,6 +126,7 @@
                                     <th class="text-center">Category</th>
                                     <th class="text-center">Capacity</th>
                                     <th class="text-center">Rate Per Night</th>
+                                    <th class="text-center">Rate Per Pax</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Created At</th>
                                     <th class="text-center">Actions</th>
@@ -129,10 +136,11 @@
                                 @foreach ($rooms as $room)
                                     <tr>
                                         <td class="align-middle text-center">{{ $room->room_number }}</td>
-                                        <td class="align-middle text-center">{{ Str::title($room->room_type) }}</td>
-                                        <td class="align-middle text-center">{{ $room->category->name ?? '-' }}</td>
+                                        <td class="align-middle">{{ Str::title($room->room_type) }}</td>
+                                        <td class="align-middle">{{ $room->category->name ?? '-' }}</td>
                                         <td class="align-middle text-center">{{ $room->pax }}</td>
                                         <td class="align-middle text-center">₱{{ number_format($room->rate_per_night, 2) }}</td>
+                                        <td class="align-middle text-center">₱{{ number_format($room->rate_per_pax, 2) }}</td>
                                         <td class="align-middle text-center">
                                             <span class="badge {{ $room->status === 'available' ? 'bg-primary-subtle text-primary' : 'bg-secondary-subtle text-secondary' }}">
                                                 {{ Str::ucfirst($room->status) }}
@@ -143,6 +151,9 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             <div class="d-flex justify-content-center">
+                                                <a href="{{ route('room.availability', $room->room_id) }}" class="btn btn-sm bg-primary-subtle me-1 edit-room-btn" title="Availability">
+                                                    <span class="mdi mdi-calendar-blank-outline fs-14 text-primary"></span>
+                                                </a>
                                                 <a href="javascript:void(0);" class="btn btn-sm bg-primary-subtle me-1 edit-room-btn" data-bs-toggle="modal" title="View Gallery" data-bs-target="#room-gallery-modal-{{ $room->room_id }}">
                                                     <span class="mdi mdi-image-outline fs-14 text-primary"></span>
                                                 </a>
@@ -239,6 +250,7 @@
         const categoryInput = document.getElementById('option_category_id');
         const paxInput = document.getElementById('pax');
         const ratePerNightInput = document.getElementById('rate_per_night');
+        const ratePerPaxInput = document.getElementById('rate_per_pax');
         const checkedInInput = document.getElementById('check_in_timepickr');
         const checkedOutInput = document.getElementById('check_out_timepickr');
         const statusInput = document.getElementById('status');
@@ -257,6 +269,7 @@
                 categoryInput.value = room.option_category_id || '';
                 paxInput.value = room.pax || '';
                 ratePerNightInput.value = room.rate_per_night || '';
+                ratePerPaxInput.value = room.rate_per_pax || '';
                 checkedInInput.value = room.checked_in ? room.checked_in.slice(0, 5) : '';
                 checkedOutInput.value = room.checked_out ? room.checked_out.slice(0, 5) : '';
                 statusInput.value = room.status || '';
