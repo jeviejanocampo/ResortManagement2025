@@ -35,6 +35,7 @@ class RoomRequest extends FormRequest
             'option_category_id' => 'required|exists:option_categories,option_category_id',
             'pax' => 'required|integer|min:1',
             'rate_per_night' => 'required|numeric|min:0',
+            'rate_per_pax' => 'required|numeric|min:0',
             'checked_in' => 'nullable|date_format:H:i',
             'checked_out' => 'nullable|date_format:H:i',
             'status' => 'required|string|in:available,maintenance',

@@ -51,7 +51,7 @@ $(document).ready(function () {
     // Initialize tables with buttons
     initializeDataTableWithButtons('#users', 9, 'desc');
     initializeDataTableWithButtons('#option-categories', 2, 'desc');
-    initializeDataTableWithButtons('#rooms', 6, 'desc');
+    initializeDataTableWithButtons('#rooms', 7, 'desc');
     initializeDataTableWithButtons('#venues', 5, 'desc');
   
     // Key Tables
