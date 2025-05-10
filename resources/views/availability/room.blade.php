@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['title' => 'Availability'])
+@extends('layouts.vertical', ['title' => 'Room Availability'])
 
 @section('content')
 <div class="container-fluid">
@@ -135,7 +135,7 @@
 
 @section('script')
     @vite([
-        'resources/js/pages/demo.calendar.js',
+        'resources/js/pages/room.calendar.js',
     ])
     
     <script>
