@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Availability\RoomBookingRequest;
 use App\Models\Booking;
 use App\Models\Room;
-use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
 class RoomAvailabilityController extends Controller
@@ -23,7 +23,7 @@ class RoomAvailabilityController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = Auth::id();
-
+    
         $paymentFields = [
             'total_amount',
             'payment_method',
@@ -37,11 +37,14 @@ class RoomAvailabilityController extends Controller
             $paymentData[$field] = $data[$field] ?? null;
             unset($data[$field]);
         }
-
+    
         $booking = Booking::create($data);
         $booking->payment()->create($paymentData);
-
-        return redirect()->back()->with('success', 'Room booked and payment recorded successfully!');
+    
+        $booking->load(['room', 'payment']);
+        $pdf = Pdf::loadView('pdf.booking', compact('booking'));
+    
+        return $pdf->stream('official-receipt.pdf');
     }
 
     public function getRoomEvents($room)
@@ -59,5 +62,4 @@ class RoomAvailabilityController extends Controller
 
         return response()->json($events);
     }
-
 }

@@ -96,11 +96,10 @@
                             <div class="col-md-6 mb-3">
                                 <label for="payment_method" class="form-label">Payment Method <span class="text-danger">*</span></label>
                                 <select class="form-select" id="payment_method" name="payment_method" required>
-                                    <option value="">Select Method</option>
+                                    <option selected disabled value="">Choose...</option>
                                     <option value="cash">Cash</option>
-                                    <option value="credit_card">Credit Card</option>
                                     <option value="bank_transfer">Bank Transfer</option>
-                                    <option value="online">Online Payment</option>
+                                    <option value="online_payment">Online Payment</option>
                                 </select>
                             </div>
                         </div>
@@ -111,7 +110,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="amount_paid" class="form-label">Amount Paid</label>
-                                <input type="number" class="form-control" id="amount_paid" name="amount_paid" required>
+                                <input type="number" class="form-control" id="amount_paid" name="amount_paid">
                             </div>
                         </div>
                         <div class="mb-3">

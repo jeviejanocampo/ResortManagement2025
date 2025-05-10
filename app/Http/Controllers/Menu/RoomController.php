@@ -61,7 +61,6 @@ class RoomController extends Controller
     {
         foreach ($room->roomGallery as $image) {
             Storage::disk('public')->delete($image->image_name);
-            $image->delete();
         }
 
         $room->delete();
