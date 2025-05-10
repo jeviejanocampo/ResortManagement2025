@@ -152,10 +152,10 @@
                                         <td class="align-middle text-center">{{ $venue->created_at ? \Carbon\Carbon::parse($venue->created_at)->format('M. j, Y') : '-' }}</td>
                                         <td class="align-middle text-center">
                                             <div class="d-flex justify-content-center">
-                                                <a href="#" class="btn btn-sm bg-primary-subtle me-1 edit-venue-btn" title="Availability">
+                                                <a href="{{ route('venue.availability', $venue->venue_id) }}" class="btn btn-sm bg-primary-subtle me-1" title="Availability">
                                                     <span class="mdi mdi-calendar-blank-outline fs-14 text-primary"></span>
                                                 </a>
-                                                <a href="javascript:void(0);" class="btn btn-sm bg-primary-subtle me-1 edit-venue-btn" data-bs-toggle="modal" title="View Gallery" data-bs-target="#venue-gallery-modal-{{ $venue->venue_id }}">
+                                                <a href="javascript:void(0);" class="btn btn-sm bg-primary-subtle me-1" data-bs-toggle="modal" title="View Gallery" data-bs-target="#venue-gallery-modal-{{ $venue->venue_id }}">
                                                     <span class="mdi mdi-image-outline fs-14 text-primary"></span>
                                                 </a>
                                                 <button class="btn btn-sm bg-primary-subtle me-1 edit-venue-btn" 

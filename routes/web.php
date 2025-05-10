@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Availability\RoomAvailabilityController;
+use App\Http\Controllers\Availability\VenueAvailabilityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Menu\OptionCategoryController;
 use App\Http\Controllers\Menu\RoomController;
@@ -55,4 +56,6 @@ Route::middleware(['auth', 'verified', 'role:is_superuser,is_owner,is_staff', 'p
             'update' => 'venues.update',
             'destroy' => 'venues.destroy'
         ])->parameters(['venues' => 'venue']);
+    Route::get('venue/{venue}/availability', [VenueAvailabilityController::class, 'venue'])
+        ->name('venue.availability');
 });

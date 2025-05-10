@@ -151,10 +151,10 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             <div class="d-flex justify-content-center">
-                                                <a href="{{ route('room.availability', $room->room_id) }}" class="btn btn-sm bg-primary-subtle me-1 edit-room-btn" title="Availability">
+                                                <a href="{{ route('room.availability', $room->room_id) }}" class="btn btn-sm bg-primary-subtle me-1" title="Availability">
                                                     <span class="mdi mdi-calendar-blank-outline fs-14 text-primary"></span>
                                                 </a>
-                                                <a href="javascript:void(0);" class="btn btn-sm bg-primary-subtle me-1 edit-room-btn" data-bs-toggle="modal" title="View Gallery" data-bs-target="#room-gallery-modal-{{ $room->room_id }}">
+                                                <a href="javascript:void(0);" class="btn btn-sm bg-primary-subtle me-1" data-bs-toggle="modal" title="View Gallery" data-bs-target="#room-gallery-modal-{{ $room->room_id }}">
                                                     <span class="mdi mdi-image-outline fs-14 text-primary"></span>
                                                 </a>
                                                 <a href="javascript:void(0);" class="btn btn-sm bg-primary-subtle me-1 edit-room-btn" 
