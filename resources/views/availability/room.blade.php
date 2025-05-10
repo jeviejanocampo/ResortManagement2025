@@ -33,12 +33,10 @@
                     <input type="hidden" name="room_id" value="{{ $room->room_id }}">
                     <input type="hidden" name="rate_per_night" id="rate_per_night" value="{{ $room->rate_per_night }}">
                     <input type="hidden" name="rate_per_pax" id="rate_per_pax" value="{{ $room->rate_per_pax }}">
-                    
                     <div class="modal-header">
                         <h5 class="modal-title">New Booking for Room #{{ $room->room_number }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-    
                     <div id="step-1" class="modal-body">
                         <h6 class="mb-3 border-bottom pb-2 fw-bold">Guest Information</h6>
                         <div class="row">
@@ -61,7 +59,6 @@
                                 <input type="text" class="form-control" id="guest_address" name="guest_address">
                             </div>
                         </div>
-            
                         <h6 class="mb-3 border-bottom pb-2 fw-bold">Booking Details</h6>
                         <div class="row">
                             <div class="col-md-5 mb-3">
@@ -81,7 +78,6 @@
                             <label for="special_requests" class="form-label">Special Requests</label>
                             <textarea class="form-control" id="special_requests" name="special_requests" rows="2"></textarea>
                         </div>
-                        
                         <div class="alert alert-info">
                             <div class="d-flex justify-content-between">
                                 <span>Room Rate: <strong id="display_room_rate">₱{{ number_format($room->rate_per_night, 2) }}</strong></span>
@@ -90,10 +86,8 @@
                             </div>
                         </div>
                     </div>
-            
                     <div id="step-2" class="modal-body d-none">
                         <h6 class="mb-3 border-bottom pb-2 fw-bold">Payment Information</h6>
-                        
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="total_amount" class="form-label">Total Amount</label>
@@ -110,31 +104,21 @@
                                 </select>
                             </div>
                         </div>
-                        
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="amount_paid" class="form-label">Amount Paid <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="amount_paid" name="amount_paid" required>
+                                <label for="reference_number" class="form-label">Reference Number</label>
+                                <input type="text" class="form-control" id="reference_number" name="reference_number">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="change" class="form-label">Change</label>
-                                <input type="number" class="form-control" id="change" name="change" readonly>
+                                <label for="amount_paid" class="form-label">Amount Paid</label>
+                                <input type="number" class="form-control" id="amount_paid" name="amount_paid" required>
                             </div>
                         </div>
-                        
                         <div class="mb-3">
                             <label for="payment_notes" class="form-label">Payment Notes</label>
                             <textarea class="form-control" id="payment_notes" name="payment_notes" rows="2"></textarea>
                         </div>
-                        
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="send_confirmation" name="send_confirmation" checked>
-                            <label class="form-check-label" for="send_confirmation">
-                                Send booking confirmation to guest
-                            </label>
-                        </div>
                     </div>
-            
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-light d-none" id="prev-step" onclick="showStep(1)">Back</button>
@@ -207,13 +191,6 @@
             const roomTotal = roomRate * nights;
             const extraPaxTotal = paxRate * extraPax;
             return roomTotal + extraPaxTotal;
-        }
-
-        function calculateChange() {
-            const totalAmount = parseFloat(document.getElementById('total_amount').value) || 0;
-            const amountPaid = parseFloat(document.getElementById('amount_paid').value) || 0;
-            const change = amountPaid - totalAmount;
-            document.getElementById('change').value = change > 0 ? change.toFixed(2) : '0.00';
         }
 
         function validateStep1() {
