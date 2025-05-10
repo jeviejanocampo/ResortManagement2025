@@ -19,7 +19,7 @@ return new class extends Migration
             $table->time('check_in_time')->nullable();
             $table->time('check_out_time')->nullable();
             $table->time('visitor_time_limit')->nullable();  
-            $table->decimal('additional_overnight_price_per_pax', 10, 2)->default(0.00);
+            $table->decimal('additional_overnight_price_per_pax', 10, 2)->nullable();
             $table->enum('status', ['available', 'maintenance'])->default('available');
             $table->text('description')->nullable();
             $table->softDeletes();
