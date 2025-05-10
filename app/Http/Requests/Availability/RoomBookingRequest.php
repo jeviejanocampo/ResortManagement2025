@@ -39,7 +39,7 @@ class RoomBookingRequest extends FormRequest
             'total_amount' => 'required|numeric|min:0',
             'payment_method' => 'required|string|max:50',
             'reference_number' => 'nullable|string|max:100',
-            'amount_paid' => 'required|numeric|min:0',
+            'amount_paid' => 'nullable|numeric|min:0',
             'change' => 'nullable|numeric|min:0',
             'payment_notes' => 'nullable|string|max:255',
         ];

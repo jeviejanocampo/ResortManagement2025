@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Availability\RoomAvailabilityController;
-use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Menu\InvoiceController;
 use App\Http\Controllers\Menu\OptionCategoryController;
 use App\Http\Controllers\Menu\RoomController;
 use App\Http\Controllers\Menu\UserController;

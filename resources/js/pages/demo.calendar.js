@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
         dayMaxEvents: true,
         handleWindowResize: true,
         events: `/room/${roomId}/events`,
+        eventClick: function(info) {
+            alert(info.event.title);            
+        },
         dateClick: function(info) {
             const events = calendar.getEvents();
             const clickedDate = new Date(info.date).setHours(0, 0, 0, 0);
@@ -58,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
         eventDidMount: function(info) {
-            info.el.style.cursor = 'not-allowed';
+            info.el.style.cursor = 'pointer';
         }
     });
     calendar.render();
